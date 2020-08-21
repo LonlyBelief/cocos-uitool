@@ -1,0 +1,42 @@
+<div>
+  <style>
+    .im-container {
+      height: 32px;
+      line-height: 32px;
+      width: 42px;
+      white-space: nowrap;
+    }
+
+    .im-button {
+      background-image: url({{d.normal_icon}});
+      background-repeat: no-repeat;
+      height: 27px;
+      width: 42px;
+      margin-top: 2.5px;
+    }
+
+    .im-button:hover {
+      background-image: url({{d.hover_icon}});
+    }
+
+    .new-msg {
+      position: absolute;
+      background-image: url({{d.hint_icon}});
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      width: 6px;
+      height: 6px;
+      top: 5px;
+      left: 21px;
+    }
+  </style>
+  <div
+    class="im-container"
+    onclick="(function (){Editor.Panel.open('im-plugin');})();"
+  >
+    <div class="im-button"></div>
+    {{# if(d.hasNewMsg) { }} {{ '
+    <div class="new-msg"></div>
+    ' }} {{# }}}
+  </div>
+</div>

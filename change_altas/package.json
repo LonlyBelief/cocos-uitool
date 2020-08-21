@@ -1,0 +1,23 @@
+{
+  "name": "change_altas",
+  "version": "0.0.1",
+  "description": "The package template for getting started.",
+  "author": "Cocos Creator",
+  "main": "main.js",
+  "main-menu": {
+    "i18n:MAIN_MENU.package.title/change_altas/open": {
+      "message": "change_altas:open"
+    },
+    "i18n:MAIN_MENU.package.title/change_altas/hello": {
+      "message": "change_altas:say-hello"
+    }
+  },
+  "panel": {
+    "main": "panel/index.js",
+    "type": "dockable",
+    "title": "change_altas",
+    "width": 500,
+    "height": 500,
+    "engineSupport": true
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "im-plugin",
+  "version": "1.0.0",
+  "main": "main.js",
+  "main-menu": {
+    "i18n:MAIN_MENU.panel.title/i18n:im-plugin.title": {
+      "message": "im-plugin:open"
+    }
+  },
+  "panel": {
+    "main": "panel/index.js",
+    "type": "dockable",
+    "title": "i18n:im-plugin.title",
+    "resizable": false,
+    "width": 1000,
+    "height": 700,
+    "min-width": 720,
+    "min-height": 480,
+    "devTools": false
+  },
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
