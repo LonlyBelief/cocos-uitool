@@ -2,9 +2,9 @@
 const fs = require("fs")
 const path = require("path")
 
-var font_uuid = ""
-var delete_uuid = ""
 module.exports = {
+    font_uuid: "",
+    delete_uuid: "65c9a24b-3733-495f-ad69-087f46552e00",
     load() {
         // execute when package loaded
     },
@@ -59,12 +59,12 @@ module.exports = {
             } catch (e) {
                 Editor.error("====:" + e)
             }
-        }
+        },
     },
     finPrefab(path) {
         if (fs.statSync(path).isDirectory()) {
             let files = fs.readdirSync(path)
-            files.forEach(element => {
+            files.forEach((element) => {
                 let newpath = path + "/" + element
                 this.finPrefab(newpath)
             })
@@ -80,11 +80,20 @@ module.exports = {
                     if (obj["__type__"] == "cc.Label") {
                         if (obj["_N$file"] == null || (obj["_N$file"] && obj["_N$file"]["__uuid__"] == this.delete_uuid)) {
                             let data = {
-                                __uuid__: this.font_uuid
+                                __uuid__: this.font_uuid,
                             }
                             obj["_N$file"] = data
+                            obj["_isSystemFontUsed"] = false
                         }
-                        obj["_isSystemFontUsed"] = false
+                    }
+                    if (obj["__type__"] == "cc.RichText") {
+                        if (obj["_N$font"] == null || (obj["_N$font"] && obj["_N$font"]["__uuid__"] == this.delete_uuid)) {
+                            let data = {
+                                __uuid__: this.font_uuid,
+                            }
+                            obj["_N$font"] = data
+                            obj["_isSystemFontUsed"] = false
+                        }
                     }
                 }
                 fs.writeFileSync(path, JSON.stringify(jD, null, 2))
@@ -94,9 +103,9 @@ module.exports = {
     deleteFont(path) {
         if (fs.statSync(path).isDirectory()) {
             let files = fs.readdirSync(path)
-            files.forEach(element => {
+            files.forEach((element) => {
                 let newpath = path + "/" + element
-                this.finPrefab(newpath)
+                this.deleteFont(newpath)
             })
         } else {
             let regex = new RegExp("(.prefab|.fire)$")
@@ -110,12 +119,18 @@ module.exports = {
                     if (obj["__type__"] == "cc.Label") {
                         if (obj["_N$file"] && obj["_N$file"]["__uuid__"] == this.delete_uuid) {
                             obj["_N$file"] = null
+                            obj["_isSystemFontUsed"] = true
                         }
-                        obj["_isSystemFontUsed"] = true
+                    }
+                    if (obj["__type__"] == "cc.RichText") {
+                        if (obj["_N$font"] && obj["_N$font"]["__uuid__"] == this.delete_uuid) {
+                            obj["_N$font"] = null
+                            obj["_isSystemFontUsed"] = true
+                        }
                     }
                 }
                 fs.writeFileSync(path, JSON.stringify(jD, null, 2))
             }
         }
-    }
+    },
 }
